@@ -6,6 +6,7 @@ import AddContact from './AddContact';
 
 
 
+
 const ContactList = () => {
     const [detail, setDetail] = useState({
         id: "",
@@ -40,7 +41,9 @@ const ContactList = () => {
         setIsEditing(false)
     };
 
+
     const handleDelete = (id) => {
+        window.alert("Are you sure, You want to delete?")
         dispatch(removeContact({id}))
         setDetail({ ...detail })
     };
