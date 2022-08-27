@@ -20,4 +20,4 @@ You may also see any lint errors in the console.
 
 ### `used ant design`
 
-App Demo Link [https://bkmanish01.github.io/redux-toolkit-crud-app]
+Demo App Link [https://bkmanish01.github.io/redux-toolkit-crud-app]
