@@ -1,0 +1,25 @@
+.active {
+    background: #fff;
+}
+
+.list-table {
+    padding: 4rem 1rem;
+}
+label {
+    font-weight: bold;
+}
+.error {
+    color: red;
+}
+
+
+@media only screen and (max-width: 495px) {
+    .nav-link {
+        margin-left: 0.3rem;
+    }
+    .table {
+        overflow-x: auto;
+        display: block;
+    }
+    
+}

@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeContact, editContact } from '../slices/contactSlice';
-import AddContact from './AddContact';
-
-
 
 
 
 const ContactList = () => {
     const [detail, setDetail] = useState({
         id: "",
-        name:"",
-        phone:"",
-        email:"",
+        firstName:"", 
+        lastName:"", 
+        address:"", 
+        phone:"", 
+        email:""
     });
 
     const [isEditing, setIsEditing] = useState(false);
@@ -20,11 +19,11 @@ const ContactList = () => {
     const { contacts } = useSelector(state => state.contact)
     const dispatch = useDispatch();
 
-    const { id, name, phone, email} = detail;
+    const { id, firstName, lastName, address, phone, email} = detail;
 
-    const editToggle = (id, name, phone, email) => {
+    const editToggle = (id, firstName, lastName, address, phone, email) => {
         setIsEditing(true);
-        setDetail({...detail, id, name, phone, email});
+        setDetail({...detail, id, firstName, lastName, address, phone, email});
     };
 
     const handleChange = (event) => {
@@ -37,7 +36,7 @@ const ContactList = () => {
 
     const handleEditContact = (e) => {
         e.preventDefault()
-        dispatch(editContact({id, name, phone, email}));
+        dispatch(editContact({id, firstName, lastName, address, phone, email}));
         setIsEditing(false)
     };
 
@@ -51,74 +50,100 @@ const ContactList = () => {
 
     return (
         <>
-        <br /><br />
-
         { isEditing ?
-        <div className="card" style={{margin:"40px 50px", width:"40%", backgroundColor:"#f06292", boxShadow:"0px 10px 13px -7px #000000"}}>
-            <form style={{margin:"20px 20px"}}  onSubmit={handleEditContact}>
-                <h1 style={{textDecoration:"underline"}}>Edit Contact</h1>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputName" className="form-label"><b>Name:</b></label>
-                    <input type="text" name="name" value={name || ""}  className="form-control" id="exampleInputName"  onChange={handleChange}/>
+            <div className="container" style={{padding:"3rem 3rem"}}>
+                <h5 className="card-title">Update contact Here.</h5>
+                <div className="card">
+                    <div className="card-body">
+                        <form onSubmit={handleEditContact}>
+                            <div className="form-row">
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputFirstName">First Name</label>
+                                    <input type="text" className="form-control" id="inputFirstName" name="firstName" value={firstName || ""} onChange={handleChange}/>
+                                </div>
+                                <div className="form-group col-md-6 mt-2">
+                                    <label htmlFor="inputLastName">Last Name</label>
+                                    <input type="text" className="form-control" id="inputLastName" name="lastName" value={lastName || ""} onChange={handleChange}/>
+                                </div>
+                            </div>
+                            <div className="form-group col-md-6">
+                                <label htmlFor="inputAddress">Address</label>
+                                <input type="text" className="form-control" id="inputAddress" name="address"  value={address || ""} onChange={handleChange}/>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputPhone">Phone</label>
+                                    <input type="text" className="form-control" id="inputPhone" name="phone" value={phone || ""} onChange={handleChange}/>
+                                </div>
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="inputEmail">Email</label>
+                                    <input type="email" className="form-control" id="inputEmail" name="email" value={email || ""} onChange={handleChange}/>
+                                </div>
+                            </div>
+                            <button type="submit" className="btn btn-danger mt-2">Cancel</button>
+                            <button type="submit" className="btn btn-primary mt-2 ms-2">Update</button>
+                        </form>
+                    </div>
                 </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputPhone" className="form-label"><b>Phone:</b></label>
-                    <input type="number" name="phone"  value={phone || ""} className="form-control" id="exampleInputPhone"  onChange={handleChange}/>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label"><b>Email:</b></label>
-                    <input type="email" name="email" value={email || ""}  className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"  onChange={handleChange}/>
-                </div>
-                <button type="submit" className="btn btn-primary" style={{background:"blue", color:"white", border:"none"}}>Update</button>
-            </form>
-        </div> : <AddContact />
-        }
-
-        <br /><br />
-        <h1 style={{marginLeft:"50px", textDecoration:"underline"}}>Contact List</h1>
-
-        { contacts.length > 0 ?
-            <table className="table" style={{width:"80%", margin:"20px 50px", border:"1px solid", backgroundColor:"#689f38", boxShadow:"0px 10px 13px -7px #000000"}}>
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {contacts.map((conn, index) => (
-                    <tr key={conn.id}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{conn.name}</td>
-                        <td>{conn.phone}</td>
-                        <td>{conn.email}</td>
-                        <td>
-                            <button className="btn btn-primary"  style={{border:"none"}} onClick={() => editToggle(conn?.id, conn?.name, conn?.phone, conn?.email)}>Edit</button>
-                            <button className="btn btn-danger mx-2"style={{border:"none"}}  onClick={() => handleDelete(conn?.id)}>Delete</button>
-                        </td>
-                    </tr>
-                ))}
-                </tbody>
-            </table> :
-            <table className="table" style={{width:"80%", margin:"20px 50px", border:"1px solid", backgroundColor:"#689f38"}}>
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Empty List!</td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>: 
+            <div className="list-table">
+                { contacts.length > 0 ?
+                    <table className="table">
+                        <thead className="thead-dark bg-dark text-white text-center">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {contacts.map((conn, index) => (
+                                <tr className="text-center" key={conn.id}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{conn.firstName}</td>
+                                    <td>{conn.lastName}</td>
+                                    <td>{conn.address}</td>
+                                    <td>{conn.phone}</td>
+                                    <td>{conn.email}</td>
+                                    <td>
+                                        <i className="fa-solid fa-pen-to-square text-primary" onClick={() => editToggle(
+                                            conn?.id, 
+                                            conn?.firstName, 
+                                            conn?.lastName, 
+                                            conn?.address, 
+                                            conn?.phone, 
+                                            conn?.email
+                                        )}></i>
+                                        <i className="fa-solid fa-trash-can text-danger ms-3" onClick={() => handleDelete(conn?.id)}></i>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table> :
+                    <table className="table">
+                        <thead className="thead-dark bg-dark text-white text-center">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Contact list is empty now!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            </div>
         }
         </>
     );
