@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/redux-toolkit-crud-app/static/js/main.92114675.js",
+    "main.css": "/redux-toolkit-crud-app/static/css/main.f1d08187.css",
+    "main.js": "/redux-toolkit-crud-app/static/js/main.7fb60ad8.js",
     "index.html": "/redux-toolkit-crud-app/index.html",
-    "main.92114675.js.map": "/redux-toolkit-crud-app/static/js/main.92114675.js.map"
+    "main.f1d08187.css.map": "/redux-toolkit-crud-app/static/css/main.f1d08187.css.map",
+    "main.7fb60ad8.js.map": "/redux-toolkit-crud-app/static/js/main.7fb60ad8.js.map"
   },
   "entrypoints": [
-    "static/js/main.92114675.js"
+    "static/css/main.f1d08187.css",
+    "static/js/main.7fb60ad8.js"
   ]
 }
